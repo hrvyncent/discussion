@@ -13,7 +13,7 @@ export default defineConfig({
                 transformAssetsUrls: {
                     base: null,
                     includeAbsolute: false,
-                } 
+                },
             },
         })
     ],
