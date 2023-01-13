@@ -43,7 +43,7 @@ const login = () => {
                         <input type="checkbox" id="remember" v-model="form.remember" class="accent-blue-600 focus:outline-blue-600">
                         <label for="remember" class="text-sm font-semibold select-none">Remember Me</label>
                     </div>
-                    <Link href="/" class="text-sm font-semibold hover:underline" tabindex="-1">Forgot Password?</Link>
+                    <Link :href="route('password.request')" class="text-sm font-semibold hover:underline" tabindex="-1">Forgot Password?</Link>
                 </div>
 
                 <SubmitButton :disabled="form.processing" label="Log in" />
