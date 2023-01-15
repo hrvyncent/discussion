@@ -1,7 +1,9 @@
 <script setup>
-import Dropdown from '@/Components/Dropdown.vue';
-import { Link, useForm, usePage } from '@inertiajs/inertia-vue3';
-import { computed, ref } from 'vue';
+import { MenuItem } from '@headlessui/vue'
+import Dropdown from '@/Components/Dropdown.vue'
+import NavLink from '@/Components/NavLink.vue'
+import { Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+import { computed } from 'vue';
 
 const form = useForm({
     s: '',
@@ -22,8 +24,8 @@ const search = () => {
 </script>
 
 <template>
-    <div class="flex flex-col relative">
-        <header class="sticky top-0 p-4">
+    <div class="flex flex-col relative h-screen">
+        <header class="sticky top-0 p-4 z-50 bg-slate-800 ring-1 ring-black ring-opacity-5 shadow">
             <div class="flex items-center gap-8 w-full max-w-7xl mx-auto">
                 <span class="flex items-center gap-3">
                     <i class="fa-brands fa-laravel text-4xl text-red-600"></i>
@@ -58,8 +60,28 @@ const search = () => {
                 </nav>
             </div>
         </header>
-        <main class="flex flex-col p-4">
-            <slot />
-        </main>
+        <div class="flex relative z-20">
+            <aside class=" fixed left-0 inset-y-0  mt-20 w-56 border-r border-black/5">
+                <div class="flex flex-col py-4">
+                    <NavLink :href="route('home')" :active="route().current('home')">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </NavLink>
+                    <NavLink href="">
+                        <i class="fa-solid fa-layer-group"></i>
+                        Discussions
+                    </NavLink>
+                    <NavLink>
+                        <i class="fa-solid fa-tag"></i>
+                        Topics
+                    </NavLink>
+                </div>
+            </aside>
+            <div class="p-4">
+                <main class="flex-1 h-full overflow-y-auto pl-56">
+                    <slot />
+                </main>
+            </div>
+        </div>
     </div>
 </template>

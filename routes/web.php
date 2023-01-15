@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/', fn() => inertia('Home'))->name('home');
     Route::get('search', function () {
-        $search = request()->search;
+        $search = request()->query('s');
         return inertia('Home', compact('search'));
     })->name('search');
 });
