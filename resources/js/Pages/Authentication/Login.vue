@@ -1,8 +1,10 @@
 <script setup>
 import SubmitButton from '@/Components/SubmitButton.vue';
 import TextBox from '@/Components/TextBox.vue';
+import Toast from '@/Components/Toast.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3';
+import { computed, ref, onMounted } from 'vue';
 
 const form = useForm({
     email: '',
@@ -10,11 +12,24 @@ const form = useForm({
     remember: false,
 })
 
+const active = ref(false)
+const passwordReset = computed(() => usePage().props.value.notifications.status === 'password-reset-success')
+
 const login = () => {
     form.post(route('authenticate'), {
         onFinish: () => form.reset('password'),
     })
 }
+
+const closeHandler = () => {
+    active.value = false
+}
+
+onMounted(() => {
+    if(passwordReset.value) {
+        active.value = passwordReset.value
+    }
+})
 </script>
 
 <template>
@@ -56,4 +71,11 @@ const login = () => {
             </span>
         </div>
     </GuestLayout>
+
+    <Toast
+        title="Password Reset"
+        message="Your password has been reset"
+        @close="closeHandler"
+        :active="active"
+        autohide />
 </template>
